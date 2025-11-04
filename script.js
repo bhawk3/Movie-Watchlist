@@ -1,17 +1,37 @@
 const movieDisplay = document.getElementById("movie-display");
 
 //API Connection
-fetch("https://www.omdbapi.com/?i=tt3896198&apikey=4af855c9")
-	.then((response) => {
+async function getData() {
+	try {
+		const response = await fetch("https://www.omdbapi.com/?i=tt3896198&apikey=4af855c9");
 		if (!response.ok) {
-			throw new Error("There was an error!");
+			throw new Error("Could not get data");
 		}
-		return response.json(); // Parse the JSON data from the response
-	})
-	.then((data) => {
-		console.log("Data received:", data);
-		// Process the data here (e.g., update the DOM)
-	})
-	.catch((error) => {
-		console.error("There was a problem with the fetch operation:", error);
-	});
+		//if you get to this point then the call is good.
+		// Set the data into json and assign it to data.
+		//log the data
+		const data = await response.json();
+
+		const moviePoster = data.Poster;
+		const movieTitle = data.Title;
+		const movieGenre = data.Genre;
+		const rating = data.imdbRating;
+
+		function displayData() {
+			movieDisplay.innerHTML += `
+                <div style="display:flex; justify-content:center; flex-direction:column;">
+                    <img src="${moviePoster}" height="250" width="150" alt="Movie poster for ${movieTitle}" />
+                    <h2>${movieTitle}</h2>
+                    <p>${movieGenre}</p>
+                    <p>${rating}</p>
+                </div>
+            `;
+		}
+		displayData();
+		console.log(movieTitle);
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+getData();
