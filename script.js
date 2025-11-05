@@ -1,9 +1,17 @@
 const movieDisplay = document.getElementById("movie-display");
+const movieSelect = document.getElementById("movie-select");
+const searchBtn = document.getElementById("search-btn");
 
 //API Connection
-async function getData() {
+searchBtn.addEventListener("click", async () => {
+	const query = movieSelect.value;
+	if (!query) {
+		return alert("No movie has been selected");
+	}
+
+	movieDisplay.innerHTML = "<p>Loading...</p>";
 	try {
-		const response = await fetch("https://www.omdbapi.com/?i=tt3896198&apikey=4af855c9");
+		const response = await fetch(`https://www.omdbapi.com/?s=${query}&apikey=4af855c9`);
 		if (!response.ok) {
 			throw new Error("Could not get data");
 		}
@@ -12,26 +20,19 @@ async function getData() {
 		//log the data
 		const data = await response.json();
 
-		const moviePoster = data.Poster;
-		const movieTitle = data.Title;
-		const movieGenre = data.Genre;
-		const rating = data.imdbRating;
+		movieDisplay.innerHTML = data.Search.map(
+			(movie) =>
+				`<div style="display:flex; align-items:center; flex-direction:column;">
+					<img src="${movie.Poster}" height="250" width="150" alt="Movie poster for ${movie.Title}" />
+					<h2>${movie.Title}</h2>
+					<p>${movie.Genre}</p>
+					<p>${movie.imdbRating}</p>
+				</div>
+		`
+		).join("");
 
-		function displayData() {
-			movieDisplay.innerHTML += `
-                <div style="display:flex; justify-content:center; flex-direction:column;">
-                    <img src="${moviePoster}" height="250" width="150" alt="Movie poster for ${movieTitle}" />
-                    <h2>${movieTitle}</h2>
-                    <p>${movieGenre}</p>
-                    <p>${rating}</p>
-                </div>
-            `;
-		}
-		displayData();
-		console.log(movieTitle);
+		console.log(data.Search);
 	} catch (error) {
 		console.log(error);
 	}
-}
-
-getData();
+});
