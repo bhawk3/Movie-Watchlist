@@ -22,11 +22,11 @@ searchBtn.addEventListener("click", async () => {
 
 		movieDisplay.innerHTML = data.Search.map(
 			(movie) =>
-				`<div style="display:flex; align-items:center; flex-direction:column;">
-					<img src="${movie.Poster}" height="250" width="150" alt="Movie poster for ${movie.Title}" />
-					<h2>${movie.Title}</h2>
-					<p>${movie.Genre}</p>
-					<p>${movie.imdbRating}</p>
+				`<div class="movie-styles">
+                
+					<img src="${movie.Poster}" height="250" width="200" alt="Movie poster for ${movie.Title}" />
+					<h3>${movie.Title}</h3>
+					<p>${movie.Year}</p>
 				</div>
 		`
 		).join("");

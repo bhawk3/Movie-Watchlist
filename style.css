@@ -1,0 +1,12 @@
+#movie-display {
+	display: inline-flex;
+	flex-direction: row;
+	width: 4000px;
+}
+
+.movie-styles {
+	flex-direction: column;
+	align-items: center;
+	margin: 15px;
+	overflow: hidden;
+}
