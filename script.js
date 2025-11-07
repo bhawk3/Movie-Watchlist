@@ -21,11 +21,10 @@ searchBtn.addEventListener("click", async () => {
 		const data = await response.json();
 
 		movieDisplay.innerHTML = data.Search.map(
-			(movie) =>
-				`<div class="movie-styles">
-                
+			(movie, i) =>
+				`<div class="movie-styles ${i >= 5 ? "hidden" : ""}">
 					<img src="${movie.Poster}" height="250" width="200" alt="Movie poster for ${movie.Title}" />
-					<h3>${movie.Title}</h3>
+					<h3 class="movie-title">${movie.Title}</h3>
 					<p>${movie.Year}</p>
 				</div>
 		`
