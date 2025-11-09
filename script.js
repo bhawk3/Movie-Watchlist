@@ -29,7 +29,7 @@ searchBtn.addEventListener("click", async () => {
 				</div>
 		`
 		).join("");
-
+		showingMovies();
 		console.log(data.Search);
 	} catch (error) {
 		console.log(error);
@@ -37,13 +37,13 @@ searchBtn.addEventListener("click", async () => {
 });
 
 function showingMovies() {
-	const hiddenMovies = document.querySelectorAll("hidden");
+	const hiddenMovies = document.querySelectorAll(".hidden");
 	const observer = new IntersectionObserver(
-		(entries) => {
+		(entries, obs) => {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
 					entry.target.classList.remove("hidden");
-					observer.unobserve(entry.target);
+					obs.unobserve(entry.target);
 				}
 			});
 		},

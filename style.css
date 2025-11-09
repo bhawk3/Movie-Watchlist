@@ -1,23 +1,31 @@
 #movie-display {
-	display: inline-flex;
+	display: flex;
 	flex-direction: row;
+	overflow-x: auto;
+	gap: 20px;
+	scroll-snap-type: x mandatory;
+	width: 100%;
+	height: 350px;
 }
 
 .movie-styles {
+	flex: 0 0 auto;
+	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 15px;
-	overflow: hidden;
-	width: 4000px;
 	opacity: 1;
 	transform: translateY(0);
-}
-.movie-title {
-	font-size: 16px;
+	transition: all 0.6s ease;
+	width: 300px;
+	text-align: center;
+	overflow-y: hidden;
 }
 
 .hidden {
 	opacity: 0;
 	transform: translateY(30px);
-	transition: all 0.5s ease;
+}
+
+h3 {
+	font-size: 21px;
 }
