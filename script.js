@@ -35,3 +35,22 @@ searchBtn.addEventListener("click", async () => {
 		console.log(error);
 	}
 });
+
+function showingMovies() {
+	const hiddenMovies = document.querySelectorAll("hidden");
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.remove("hidden");
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{
+			root: null,
+			threshold: 0.1,
+		}
+	);
+	hiddenMovies.forEach((movie) => observer.observe(movie));
+}
